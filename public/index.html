@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistente de Código e Extração de Dados</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-robot"></i>
+                    <h1>CodeAssistant AI</h1>
+                </div>
+                <div class="header-info">
+                    <span class="status-indicator" id="statusIndicator">
+                        <i class="fas fa-circle"></i>
+                        <span>Online</span>
+                    </span>
+                    <div class="api-info">
+                        <i class="fas fa-brain"></i>
+                        <span>Mistral AI</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-magic"></i> Ações Rápidas</h3>
+                    <div class="quick-actions">
+                        <button class="action-btn" onclick="setTemplate('code')">
+                            <i class="fas fa-code"></i>
+                            <span>Gerar Código</span>
+                        </button>
+                        <button class="action-btn" onclick="setTemplate('scrape')">
+                            <i class="fas fa-spider"></i>
+                            <span>Web Scraping</span>
+                        </button>
+                        <button class="action-btn" onclick="setTemplate('api')">
+                            <i class="fas fa-server"></i>
+                            <span>Criar API</span>
+                        </button>
+                        <button class="action-btn" onclick="setTemplate('automation')">
+                            <i class="fas fa-cogs"></i>
+                            <span>Automação</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-tools"></i> Ferramentas</h3>
+                    <div class="tools-list">
+                        <div class="tool-item active">
+                            <i class="fas fa-comments"></i>
+                            <span>Chat IA</span>
+                        </div>
+                        <div class="tool-item active">
+                            <i class="fas fa-code"></i>
+                            <span>Gerador de Código</span>
+                        </div>
+                        <div class="tool-item active">
+                            <i class="fas fa-globe"></i>
+                            <span>Web Scraper</span>
+                        </div>
+                        <div class="tool-item active">
+                            <i class="fas fa-download"></i>
+                            <span>Extrator de Dados</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-history"></i> Histórico</h3>
+                    <div class="history-list" id="historyList">
+                        <!-- Histórico será preenchido dinamicamente -->
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Chat Area -->
+            <div class="chat-area">
+                <div class="chat-header">
+                    <h2>Assistente de Código e Extração de Dados</h2>
+                    <p>Powered by Mistral AI - Crie códigos, extraia dados e automatize tarefas</p>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-text">
+                                <h3>👋 Olá! Sou seu assistente de código e extração de dados</h3>
+                                <p>Posso ajudá-lo com:</p>
+                                <ul>
+                                    <li>🔧 <strong>Criação de código</strong> em JavaScript, Python, HTML, CSS e mais</li>
+                                    <li>🕷️ <strong>Web scraping</strong> e extração de dados de sites</li>
+                                    <li>🤖 <strong>Automação</strong> de tarefas repetitivas</li>
+                                    <li>🌐 <strong>APIs</strong> e integrações</li>
+                                </ul>
+                                <p>Como posso ajudá-lo hoje?</p>
+                            </div>
+                            <div class="suggestions">
+                                <button class="suggestion-btn" onclick="setPrompt('Crie um script JavaScript para extrair dados de uma página web')">
+                                    Extrair dados de site
+                                </button>
+                                <button class="suggestion-btn" onclick="setPrompt('Desenvolva uma API REST com Node.js e Express')">
+                                    Criar API REST
+                                </button>
+                                <button class="suggestion-btn" onclick="setPrompt('Automatize o download de arquivos de múltiplas URLs')">
+                                    Automatizar downloads
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <div class="input-tabs">
+                        <button class="tab-btn active" data-tab="chat">
+                            <i class="fas fa-comments"></i>
+                            Chat
+                        </button>
+                        <button class="tab-btn" data-tab="scrape">
+                            <i class="fas fa-spider"></i>
+                            Web Scraping
+                        </button>
+                        <button class="tab-btn" data-tab="code">
+                            <i class="fas fa-code"></i>
+                            Gerar Código
+                        </button>
+                    </div>
+
+                    <!-- Chat Tab -->
+                    <div class="tab-content active" id="chatTab">
+                        <div class="input-container">
+                            <textarea 
+                                id="chatInput" 
+                                placeholder="Digite sua solicitação aqui... (Ex: 'Crie um script para extrair dados de https://example.com')"
+                                rows="3"
+                            ></textarea>
+                            <div class="input-actions">
+                                <button class="action-btn-small" onclick="clearInput()">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button class="send-btn" onclick="sendChatMessage()">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Enviar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scraping Tab -->
+                    <div class="tab-content" id="scrapeTab">
+                        <div class="form-container">
+                            <div class="form-group">
+                                <label for="scrapeUrl">URL do Site:</label>
+                                <input type="url" id="scrapeUrl" placeholder="https://example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="scrapeType">Tipo de Extração:</label>
+                                <select id="scrapeType">
+                                    <option value="basic">Básica (título, links, imagens)</option>
+                                    <option value="advanced">Avançada (seletores personalizados)</option>
+                                    <option value="generate">Gerar Script Personalizado</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="selectorsGroup" style="display: none;">
+                                <label for="selectors">Seletores CSS (JSON):</label>
+                                <textarea id="selectors" placeholder='{"titles": "h1, h2", "prices": ".price"}'></textarea>
+                            </div>
+                            <div class="form-group" id="requirementsGroup" style="display: none;">
+                                <label for="requirements">Requisitos do Script:</label>
+                                <textarea id="requirements" placeholder="Descreva o que você quer extrair..."></textarea>
+                            </div>
+                            <button class="send-btn" onclick="performScraping()">
+                                <i class="fas fa-spider"></i>
+                                Extrair Dados
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Code Generation Tab -->
+                    <div class="tab-content" id="codeTab">
+                        <div class="form-container">
+                            <div class="form-group">
+                                <label for="codePrompt">Descrição do Código:</label>
+                                <textarea id="codePrompt" placeholder="Descreva o código que você quer gerar..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="codeLanguage">Linguagem:</label>
+                                <select id="codeLanguage">
+                                    <option value="javascript">JavaScript</option>
+                                    <option value="python">Python</option>
+                                    <option value="html">HTML</option>
+                                    <option value="css">CSS</option>
+                                    <option value="nodejs">Node.js</option>
+                                    <option value="react">React</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="codeRequirements">Requisitos Específicos:</label>
+                                <textarea id="codeRequirements" placeholder="Requisitos adicionais, bibliotecas, etc..."></textarea>
+                            </div>
+                            <button class="send-btn" onclick="generateCode()">
+                                <i class="fas fa-code"></i>
+                                Gerar Código
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-content">
+                <div class="loading-spinner">
+                    <i class="fas fa-cog fa-spin"></i>
+                </div>
+                <p>Processando com Mistral AI...</p>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toastContainer"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

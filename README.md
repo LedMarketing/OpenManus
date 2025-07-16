@@ -1,191 +1,232 @@
-English | [中文](README_zh.md) | [한국어](README_ko.md) | [日本語](README_ja.md)
+# Assistente Web de Código e Extração de Dados
 
-[![GitHub stars](https://img.shields.io/github/stars/mannaandpoem/OpenManus?style=social)](https://github.com/mannaandpoem/OpenManus/stargazers)
-&ensp;
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) &ensp;
-[![Discord Follow](https://dcbadge.vercel.app/api/server/DYn29wFk9z?style=flat)](https://discord.gg/DYn29wFk9z)
+Uma aplicação web moderna em JavaScript que utiliza a API da Mistral AI para criar códigos e extrair dados de sites web.
 
-# 👋 OpenManus
+## 🚀 Características
 
-Manus is incredible, but OpenManus can achieve any idea without an *Invite Code* 🛫!
+- **Interface Web Moderna**: Design responsivo e intuitivo
+- **Integração com Mistral AI**: Powered by Mistral AI para geração inteligente de código
+- **Web Scraping Avançado**: Extração de dados básica e avançada com Puppeteer e Cheerio
+- **Geração de Código**: Suporte para JavaScript, Python, HTML, CSS, Node.js e React
+- **Chat Interativo**: Conversação natural com o assistente IA
+- **Histórico**: Acompanhe suas conversas e extrações anteriores
+- **Templates Prontos**: Modelos para tarefas comuns
 
-Our team members [@Xinbin Liang](https://github.com/mannaandpoem) and [@Jinyu Xiang](https://github.com/XiangJinyu) (core authors), along with [@Zhaoyang Yu](https://github.com/MoshiQAQ), [@Jiayi Zhang](https://github.com/didiforgithub), and [@Sirui Hong](https://github.com/stellaHSR), we are from [@MetaGPT](https://github.com/geekan/MetaGPT). The prototype is launched within 3 hours and we are keeping building!
+## 📋 Pré-requisitos
 
-It's a simple implementation, so we welcome any suggestions, contributions, and feedback!
+- Node.js 16+ 
+- NPM ou Yarn
+- Chave da API Mistral AI
 
-Enjoy your own agent with OpenManus!
+## 🛠️ Instalação
 
-We're also excited to introduce [OpenManus-RL](https://github.com/OpenManus/OpenManus-RL), an open-source project dedicated to reinforcement learning (RL)- based (such as GRPO) tuning methods for LLM agents, developed collaboratively by researchers from UIUC and OpenManus.
+1. **Clone o repositório**
+   ```bash
+   git clone <repository-url>
+   cd web-code-assistant
+   ```
 
-## Project Demo
+2. **Instale as dependências**
+   ```bash
+   npm install
+   ```
 
-<video src="https://private-user-images.githubusercontent.com/61239030/420168772-6dcfd0d2-9142-45d9-b74e-d10aa75073c6.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDEzMTgwNTksIm5iZiI6MTc0MTMxNzc1OSwicGF0aCI6Ii82MTIzOTAzMC80MjAxNjg3NzItNmRjZmQwZDItOTE0Mi00NWQ5LWI3NGUtZDEwYWE3NTA3M2M2Lm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTAzMDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwMzA3VDAzMjIzOVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTdiZjFkNjlmYWNjMmEzOTliM2Y3M2VlYjgyNDRlZDJmOWE3NWZhZjE1MzhiZWY4YmQ3NjdkNTYwYTU5ZDA2MzYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.UuHQCgWYkh0OQq9qsUWqGsUbhG3i9jcZDAMeHjLt5T4" data-canonical-src="https://private-user-images.githubusercontent.com/61239030/420168772-6dcfd0d2-9142-45d9-b74e-d10aa75073c6.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDEzMTgwNTksIm5iZiI6MTc0MTMxNzc1OSwicGF0aCI6Ii82MTIzOTAzMC80MjAxNjg3NzItNmRjZmQwZDItOTE0Mi00NWQ5LWI3NGUtZDEwYWE3NTA3M2M2Lm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTAzMDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwMzA3VDAzMjIzOVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTdiZjFkNjlmYWNjMmEzOTliM2Y3M2VlYjgyNDRlZDJmOWE3NWZhZjE1MzhiZWY4YmQ3NjdkNTYwYTU5ZDA2MzYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.UuHQCgWYkh0OQq9qsUWqGsUbhG3i9jcZDAMeHjLt5T4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px"></video>
+3. **Configure as variáveis de ambiente**
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Edite o arquivo `.env` com suas configurações:
+   ```env
+   PORT=3000
+   MISTRAL_API_KEY=S1VlGPjrSMIIQ3IIKYIw2LhNhlurxQmC
+   NODE_ENV=development
+   ```
 
-## Installation
+4. **Inicie o servidor**
+   ```bash
+   npm start
+   ```
+   
+   Para desenvolvimento com auto-reload:
+   ```bash
+   npm run dev
+   ```
 
-We provide two installation methods. Method 2 (using uv) is recommended for faster installation and better dependency management.
+5. **Acesse a aplicação**
+   - Interface Web: `http://localhost:3000`
+   - API Status: `http://localhost:3000/api/status`
 
-> **⚠️ Troubleshooting**: If you encounter `ModuleNotFoundError: No module named '_socket'`, this indicates a corrupted Python installation. Follow the reinstallation steps below for your chosen method.
+## 📱 Como Usar
 
-### Method 1: Using conda
+### 1. Chat com IA
+- Digite suas solicitações na aba "Chat"
+- Peça para criar códigos, explicar conceitos ou gerar scripts
+- Use linguagem natural: "Crie um script para extrair dados de um e-commerce"
 
-1. Create a new conda environment:
+### 2. Web Scraping
+- **Básico**: Extrai título, links, imagens e metadados
+- **Avançado**: Use seletores CSS personalizados em formato JSON
+- **Gerar Script**: Crie um script personalizado de scraping
 
-```bash
-conda create -n open_manus python=3.12
-conda activate open_manus
-```
+### 3. Geração de Código
+- Descreva o código que você quer
+- Escolha a linguagem (JavaScript, Python, HTML, CSS, etc.)
+- Adicione requisitos específicos
 
-2. Clone the repository:
+## 🔧 API Endpoints
 
-```bash
-git clone https://github.com/mannaandpoem/OpenManus.git
-cd OpenManus
-```
-
-3. Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-**If you encounter the `_socket` module error with conda:**
-```bash
-conda deactivate
-conda env remove -n open_manus
-conda create -n open_manus python=3.12
-conda activate open_manus
-pip install -r requirements.txt
-```
-
-### Method 2: Using uv (Recommended)
-
-1. Install uv (A fast Python package installer and resolver):
-
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-2. Clone the repository:
-
-```bash
-git clone https://github.com/mannaandpoem/OpenManus.git
-cd OpenManus
-```
-
-3. Create a new virtual environment and activate it:
-
-```bash
-uv venv
-source .venv/bin/activate  # On Unix/macOS
-# Or on Windows:
-# .venv\Scripts\activate
-```
-
-4. Install dependencies:
-
-```bash
-uv pip install -r requirements.txt
-```
-
-**If you encounter the `_socket` module error with uv:**
-
-On Unix/macOS:
-```bash
-deactivate  # if environment is active
-rm -rf .venv
-uv venv
-source .venv/bin/activate
-uv pip install -r requirements.txt
-```
-
-On Windows:
-```bash
-.venv\Scripts\deactivate  # if environment is active
-rmdir /s /q .venv
-uv venv
-.venv\Scripts\activate
-uv pip install -r requirements.txt
-```
-
-## Configuration
-
-OpenManus requires configuration for the LLM APIs it uses. Follow these steps to set up your configuration:
-
-1. Create a `config.toml` file in the `config` directory (you can copy from the example):
-
-```bash
-cp config/config.example.toml config/config.toml
-```
-
-2. Edit `config/config.toml` to add your API keys and customize settings:
-
-```toml
-# Global LLM configuration
-[llm]
-model = "gpt-4o"
-base_url = "https://api.openai.com/v1"
-api_key = "sk-..."  # Replace with your actual API key
-max_tokens = 4096
-temperature = 0.0
-
-# Optional configuration for specific LLM models
-[llm.vision]
-model = "gpt-4o"
-base_url = "https://api.openai.com/v1"
-api_key = "sk-..."  # Replace with your actual API key
-```
-
-## Quick Start
-
-One line for run OpenManus:
-
-```bash
-python main.py
-```
-
-Then input your idea via terminal!
-
-For unstable version, you also can run:
-
-```bash
-python run_flow.py
-```
-
-## How to contribute
-
-We welcome any friendly suggestions and helpful contributions! Just create issues or submit pull requests.
-
-Or contact @mannaandpoem via 📧email: mannaandpoem@gmail.com
-
-## Community Group
-Join our networking group on Feishu and share your experience with other developers!
-
-<div align="center" style="display: flex; gap: 20px;">
-    <img src="assets/community_group.jpg" alt="OpenManus 交流群" width="300" />
-</div>
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=mannaandpoem/OpenManus&type=Date)](https://star-history.com/#mannaandpoem/OpenManus&Date)
-
-## Acknowledgement
-
-Thanks to [anthropic-computer-use](https://github.com/anthropics/anthropic-quickstarts/tree/main/computer-use-demo)
-and [browser-use](https://github.com/browser-use/browser-use) for providing basic support for this project!
-
-Additionally, we are grateful to [AAAJ](https://github.com/metauto-ai/agent-as-a-judge), [MetaGPT](https://github.com/geekan/MetaGPT) and [OpenHands](https://github.com/All-Hands-AI/OpenHands).
-
-OpenManus is built by contributors from MetaGPT. Huge thanks to this agent community!
-
-## Cite
-```bibtex
-@misc{openmanus2025,
-  author = {Xinbin Liang and Jinyu Xiang and Zhaoyang Yu and Jiayi Zhang and Sirui Hong},
-  title = {OpenManus: An open-source framework for building general AI agents},
-  year = {2025},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  howpublished = {\url{https://github.com/mannaandpoem/OpenManus}},
+### POST /api/chat
+Conversa com a IA
+```json
+{
+  "message": "Crie um script para extrair dados",
+  "context": []
 }
 ```
+
+### POST /api/scrape-basic
+Extração básica de dados
+```json
+{
+  "url": "https://example.com"
+}
+```
+
+### POST /api/scrape-advanced
+Extração avançada com seletores
+```json
+{
+  "url": "https://example.com",
+  "selectors": {
+    "titles": "h1, h2",
+    "prices": ".price"
+  }
+}
+```
+
+### POST /api/generate-code
+Geração de código
+```json
+{
+  "prompt": "Criar uma API REST",
+  "language": "javascript",
+  "requirements": "Com Express e MongoDB"
+}
+```
+
+### POST /api/generate-scraper
+Gerar script de scraping personalizado
+```json
+{
+  "url": "https://example.com",
+  "requirements": "Extrair produtos e preços"
+}
+```
+
+## 🎨 Tecnologias Utilizadas
+
+### Backend
+- **Node.js** - Runtime JavaScript
+- **Express** - Framework web
+- **Puppeteer** - Automação de browser
+- **Cheerio** - Parser HTML server-side
+- **Axios** - Cliente HTTP
+- **Mistral AI API** - Inteligência artificial
+
+### Frontend
+- **HTML5/CSS3** - Interface moderna
+- **JavaScript ES6+** - Funcionalidades interativas
+- **Prism.js** - Syntax highlighting
+- **Font Awesome** - Ícones
+
+### Segurança
+- **Helmet** - Headers de segurança
+- **CORS** - Cross-origin resource sharing
+- **Rate Limiting** - Proteção contra spam
+
+## 🔒 Segurança
+
+- Rate limiting: 10 requests por minuto por IP
+- Validação de URLs
+- Sanitização de inputs
+- Headers de segurança com Helmet
+- Timeout em requisições
+
+## 📊 Exemplos de Uso
+
+### Extrair dados de e-commerce
+```javascript
+// Chat: "Extraia produtos e preços de https://loja.com"
+// Resultado: Script completo de scraping
+```
+
+### Criar API REST
+```javascript
+// Chat: "Crie uma API para gerenciar usuários com Node.js"
+// Resultado: Código completo com Express, rotas CRUD
+```
+
+### Automatizar tarefas
+```javascript
+// Chat: "Automatize o download de PDFs de um site"
+// Resultado: Script com Puppeteer para automação
+```
+
+## 🚀 Deploy
+
+### Usando PM2
+```bash
+npm install -g pm2
+pm2 start server.js --name "web-assistant"
+```
+
+### Usando Docker
+```dockerfile
+FROM node:16
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+### Variáveis de Ambiente para Produção
+```env
+NODE_ENV=production
+PORT=3000
+MISTRAL_API_KEY=sua_chave_aqui
+```
+
+## 🤝 Contribuição
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para detalhes.
+
+## 🆘 Suporte
+
+- **Issues**: Reporte bugs no GitHub
+- **Documentação**: Consulte este README
+- **API Mistral**: [Documentação oficial](https://docs.mistral.ai/)
+
+## 🔄 Atualizações
+
+### v1.0.0
+- ✅ Interface web completa
+- ✅ Integração com Mistral AI
+- ✅ Web scraping básico e avançado
+- ✅ Geração de código multi-linguagem
+- ✅ Sistema de histórico
+- ✅ Rate limiting e segurança
+
+---
+
+**Desenvolvido com ❤️ usando Mistral AI**
