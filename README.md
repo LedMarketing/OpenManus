@@ -25,6 +25,8 @@ We're also excited to introduce [OpenManus-RL](https://github.com/OpenManus/Open
 
 We provide two installation methods. Method 2 (using uv) is recommended for faster installation and better dependency management.
 
+> **⚠️ Troubleshooting**: If you encounter `ModuleNotFoundError: No module named '_socket'`, this indicates a corrupted Python installation. Follow the reinstallation steps below for your chosen method.
+
 ### Method 1: Using conda
 
 1. Create a new conda environment:
@@ -44,6 +46,15 @@ cd OpenManus
 3. Install dependencies:
 
 ```bash
+pip install -r requirements.txt
+```
+
+**If you encounter the `_socket` module error with conda:**
+```bash
+conda deactivate
+conda env remove -n open_manus
+conda create -n open_manus python=3.12
+conda activate open_manus
 pip install -r requirements.txt
 ```
 
@@ -74,6 +85,26 @@ source .venv/bin/activate  # On Unix/macOS
 4. Install dependencies:
 
 ```bash
+uv pip install -r requirements.txt
+```
+
+**If you encounter the `_socket` module error with uv:**
+
+On Unix/macOS:
+```bash
+deactivate  # if environment is active
+rm -rf .venv
+uv venv
+source .venv/bin/activate
+uv pip install -r requirements.txt
+```
+
+On Windows:
+```bash
+.venv\Scripts\deactivate  # if environment is active
+rmdir /s /q .venv
+uv venv
+.venv\Scripts\activate
 uv pip install -r requirements.txt
 ```
 
