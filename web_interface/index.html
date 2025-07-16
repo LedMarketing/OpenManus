@@ -51,6 +51,9 @@
                         </div>
                         <div class="message-content">
                             <p>Olá! Sou o OpenManus, seu assistente para criação de código e extração de dados. Como posso ajudá-lo hoje?</p>
+                            <div class="demo-notice">
+                                <p><strong>🚧 Modo Demo:</strong> Esta é uma versão de demonstração da interface. Para funcionalidade completa, execute o backend Flask.</p>
+                            </div>
                             <div class="suggestions">
                                 <button class="suggestion-btn" onclick="setPrompt('Crie um script Python para extrair dados de uma página web')">
                                     Extrair dados de site
@@ -171,6 +174,22 @@
         </aside>
     </div>
 
+    <!-- Demo Modal -->
+    <div id="demoModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeDemoModal()">&times;</span>
+            <h2>🚧 Modo Demonstração</h2>
+            <p>Esta é uma versão de demonstração da interface OpenManus.</p>
+            <h3>Para funcionalidade completa:</h3>
+            <ol>
+                <li>Configure o OpenManus seguindo o README</li>
+                <li>Execute: <code>cd web_interface && python backend.py</code></li>
+                <li>Acesse: <code>http://localhost:5000</code></li>
+            </ol>
+            <p><strong>Neste modo demo:</strong> As respostas são simuladas para demonstrar a interface.</p>
+        </div>
+    </div>
+
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner">
@@ -180,5 +199,18 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // Mostrar modal demo na primeira visita
+        if (!localStorage.getItem('demoModalShown')) {
+            setTimeout(() => {
+                document.getElementById('demoModal').style.display = 'block';
+                localStorage.setItem('demoModalShown', 'true');
+            }, 2000);
+        }
+        
+        function closeDemoModal() {
+            document.getElementById('demoModal').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
